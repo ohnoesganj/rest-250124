@@ -35,4 +35,8 @@ public class PostService {
     public long count() {
         return postRepository.count();
     }
+
+    public void deleteItem(Post post) {
+        postRepository.delete(post);
+    }
 }
