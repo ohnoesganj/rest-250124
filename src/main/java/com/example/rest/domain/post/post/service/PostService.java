@@ -16,13 +16,14 @@ public class PostService {
     private final PostRepository postRepository;
 
 
-    public void write(String title, String content) {
+    public Post write(String title, String content) {
         Post post = Post.builder()
                 .title(title)
                 .content(content)
                 .build();
 
         postRepository.save(post);
+        return post;
     }
 
     public List<Post> getItems() {
