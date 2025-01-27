@@ -2,6 +2,7 @@ package com.example.rest.domain.post.post.service;
 
 import com.example.rest.domain.post.post.entity.Post;
 import com.example.rest.domain.post.post.repository.PostRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +39,11 @@ public class PostService {
 
     public void deleteItem(Post post) {
         postRepository.delete(post);
+    }
+
+    @Transactional
+    public void modify(Post post, String title, String content) {
+        post.setTitle(title);
+        post.setContent(content);
     }
 }
