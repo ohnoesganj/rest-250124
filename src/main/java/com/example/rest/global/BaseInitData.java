@@ -1,5 +1,6 @@
 package com.example.rest.global;
 
+import com.example.rest.domain.member.member.service.MemberService;
 import com.example.rest.domain.post.post.service.PostService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Lazy;
 public class BaseInitData {
 
     private final PostService postService;
+    private final MemberService memberService;
 
     @Autowired
     @Lazy
@@ -22,12 +24,25 @@ public class BaseInitData {
     @Bean
     public ApplicationRunner applicationRunner() {
         return args -> {
-            self.init();
+            self.memberInit();
+            self.postInit();
         };
     }
 
+    public void memberInit() {
+        if(memberService.count() > 0) {
+            return;
+        }
+        // 회원 샘플데이터 생성
+        memberService.join("system", "1234", "시스템");
+        memberService.join("admin", "1234", "관리자");
+        memberService.join("user1", "1234", "유저1");
+        memberService.join("user2", "1234", "유저2");
+        memberService.join("user3", "1234", "유저3");
+    }
+
     @Transactional
-    public void init() {
+    public void postInit() {
         if (postService.count() > 0) {
             return;
         }

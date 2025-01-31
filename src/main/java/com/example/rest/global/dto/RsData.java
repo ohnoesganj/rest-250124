@@ -16,4 +16,9 @@ public class RsData<T> {
         this.code = code;
         this.msg = msg;
     }
+
+    public int getStatusCode() {
+        String statusCodeStr = code.split("-")[0];
+        return Integer.parseInt(statusCodeStr);
+    }
 }
